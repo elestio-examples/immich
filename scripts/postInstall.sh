@@ -5,8 +5,8 @@
 echo "Waiting for software to be ready ..."
 sleep 30s;
 
-
-curl https://${DOMAIN}/api/auth/admin-sign-up \
+target=$(docker-compose port immich-proxy 8080)
+curl https://${target}/api/auth/admin-sign-up \
   -H 'accept: application/json, text/plain, */*' \
   -H 'accept-language: fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7,he;q=0.6' \
   -H 'content-type: application/json' \
