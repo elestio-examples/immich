@@ -76,8 +76,8 @@ services:
     restart: always
     environment:
       # Make sure these values get passed through from the env file
-      - IMMICH_SERVER_URL: ${IMMICH_SERVER_URL}
-      - IMMICH_WEB_URL: ${IMMICH_SERVER_URL}
+      - IMMICH_SERVER_URL
+      - IMMICH_WEB_URL
     ports:
       - 172.17.0.1:2283:8080
     logging:
