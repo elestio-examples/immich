@@ -28,7 +28,7 @@ services:
       - typesense
 
   immich-machine-learning:
-    image: elestio4test/immich-machine-learning:latest
+    image: elestio4test/immich-machine-learning:${SOFTWARE_VERSION_TAG}
     restart: always
     volumes:
       - ./data:/usr/src/app/upload
