@@ -28,7 +28,7 @@ services:
       - typesense
 
   immich-machine-learning:
-    image: ghcr.io/immich-app/immich-machine-learning:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION}
     restart: always
     volumes:
       - ./data:/usr/src/app/upload
@@ -37,7 +37,7 @@ services:
       - .env
 
   immich-web:
-    image: ghcr.io/immich-app/immich-web:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./entrypoint.sh"]
     env_file:
@@ -72,7 +72,7 @@ services:
       - ./pgdata:/var/lib/postgresql/data
       
   immich-proxy:
-    image: ghcr.io/immich-app/immich-proxy:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-proxy:${IMMICH_VERSION}
     restart: always
     environment:
       # Make sure these values get passed through from the env file

@@ -2,7 +2,7 @@ version: "3.8"
 services:
 
   immich-server:
-    image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./start-server.sh"]
     volumes:
@@ -15,7 +15,7 @@ services:
       - typesense
 
   immich-microservices:
-    image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./start-microservices.sh"]
     volumes:
@@ -28,7 +28,7 @@ services:
       - typesense
 
   immich-machine-learning:
-    image: ghcr.io/immich-app/immich-machine-learning:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-machine-learning:${IMMICH_VERSION}
     restart: always
     volumes:
       - ./data:/usr/src/app/upload
@@ -37,7 +37,7 @@ services:
       - .env
 
   immich-web:
-    image: ghcr.io/immich-app/immich-web:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./entrypoint.sh"]
     env_file:

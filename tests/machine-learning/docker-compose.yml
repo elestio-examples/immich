@@ -1,8 +1,7 @@
 version: "3.8"
 services:
   immich-server:
-
-    image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./start-server.sh"]
     volumes:
@@ -15,7 +14,7 @@ services:
       - typesense
 
   immich-microservices:
-    image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./start-microservices.sh"]
     volumes:
@@ -37,7 +36,7 @@ services:
       - .env
 
   immich-web:
-    image: ghcr.io/immich-app/immich-web:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-web:${IMMICH_VERSION}
     restart: always
     entrypoint: ["/bin/sh", "./entrypoint.sh"]
     env_file:
@@ -72,7 +71,7 @@ services:
       - ./pgdata:/var/lib/postgresql/data
       
   immich-proxy:
-    image: ghcr.io/immich-app/immich-proxy:${SOFTWARE_VERSION_TAG}
+    image: ghcr.io/immich-app/immich-proxy:${IMMICH_VERSION}
     restart: always
     environment:
       # Make sure these values get passed through from the env file
