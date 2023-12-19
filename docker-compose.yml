@@ -3,6 +3,8 @@ services:
   immich-server:
     image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
     restart: always
+    ports:
+     - 172.17.0.1:2283:3001
     entrypoint: ["/bin/sh", "./start-server.sh"]
     volumes:
       - ./data:/usr/src/app/upload
@@ -32,12 +34,7 @@ services:
       - ./model-cache:/cache
     env_file:
       - .env
-  immich-web:
-    image: ghcr.io/immich-app/immich-web:${SOFTWARE_VERSION_TAG}
-    restart: always
-    entrypoint: ["/bin/sh", "./entrypoint.sh"]
-    env_file:
-      - .env
+
   typesense:
     image: typesense/typesense:0.24.0
     restart: always
@@ -64,16 +61,4 @@ services:
       PG_DATA: /var/lib/postgresql/data
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-  immich-proxy:
-    image: ghcr.io/immich-app/immich-proxy:${SOFTWARE_VERSION_TAG}
-    restart: always
-    environment:
-      # Make sure these values get passed through from the env file
-      - IMMICH_SERVER_URL
-      - IMMICH_WEB_URL
-    ports:
-      - 172.17.0.1:2283:8080
-    logging:
-      driver: none
-    depends_on:
-      - immich-server
+  
