@@ -4,28 +4,17 @@ services:
     image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
     restart: always
     ports:
-     - 172.17.0.1:2283:3001
-    entrypoint: ["/bin/sh", "./start-server.sh"]
+      - 172.17.0.1:2283:3001
+    # entrypoint: ["/bin/sh", "./start-server.sh"]
     volumes:
       - ./data:/usr/src/app/upload
+      - /etc/localtime:/etc/localtime:ro
     env_file:
       - .env
     depends_on:
       - immich_redis
       - immich_postgres
-      - typesense
-  immich-microservices:
-    image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
-    restart: always
-    entrypoint: ["/bin/sh", "./start-microservices.sh"]
-    volumes:
-      - ./data:/usr/src/app/upload
-    env_file:
-      - .env
-    depends_on:
-      - immich_redis
-      - immich_postgres
-      - typesense
+
   immich-machine-learning:
     image: ghcr.io/immich-app/immich-machine-learning:${SOFTWARE_VERSION_TAG}
     restart: always
@@ -35,21 +24,10 @@ services:
     env_file:
       - .env
 
-  typesense:
-    image: typesense/typesense:0.24.0
-    restart: always
-    environment:
-      - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
-      - TYPESENSE_DATA_DIR=/data
-    logging:
-      driver: none
-    volumes:
-      - ./tsdata:/data
   immich_redis:
     image: redis:6.2
     restart: always
   immich_postgres:
-    #image: postgres:14
     image: tensorchord/pgvecto-rs:pg14-v0.2.0@sha256:90724186f0a3517cf6914295b5ab410db9ce23190a2d9d0b9dd6463e3fa298f0
     restart: always
     env_file:
@@ -61,4 +39,3 @@ services:
       PG_DATA: /var/lib/postgresql/data
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-  
