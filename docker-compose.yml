@@ -4,7 +4,7 @@ services:
     image: ghcr.io/immich-app/immich-server:${SOFTWARE_VERSION_TAG}
     restart: always
     ports:
-      - 172.17.0.1:2283:3001
+      - 172.17.0.1:2283:2283
     # entrypoint: ["/bin/sh", "./start-server.sh"]
     volumes:
       - ./data:/usr/src/app/upload
